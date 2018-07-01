@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CAL</title>
+    <link href="estilo.css" rel="stylesheet">
+    <script src="angular.js"></script>
+    
+	
+</head>
+<body>
+<h1> Calculadora </h1>
+<div ng-app="prueba" ng-controller="CalcCtrl">
+    <calculadora resultado="resultado" mostrar="mostrar()"></calculadora>
+    <input class="simple" type="text" ng-model="resultado"/>
+</div>
+
+<script type="text/javascript">
+	var myApp = angular.module('prueba', []);
+
+myApp.controller("CalcCtrl", ["$scope", function($scope){
+    $scope.resultado = 0;
+    $scope.mostrar = function(){
+        alert($scope.resultado);
+    }
+}]);
+
+myApp.directive("calculadora", function(){
+    return {
+        restrict: 'E',
+        scope: {
+            resultado: "=",
+            mostrar: "&"
+        },
+        template: '<form action="#" class="simple-form">' +
+    '<input type="text" ng-model="valor1" />' +
+    '<button class="btn3d" ng-click="su()">+</button>' +
+    '<button class="btn3d" ng-click="re()">-</button>' +
+    '<button class="btn3d" ng-click="mu()">*</button>' +
+    '<button class="btn3d" ng-click="di()">/</button>' +
+
+    '<input type="text" ng-model="valor2" />' +
+    '</form>',
+        replace: true,
+        controller: ['$scope', function($scope){
+            $scope.su = function(){
+                $scope.resultado = 
+                    parseInt($scope.valor1, 10) +
+                    parseInt($scope.valor2, 10);
+                
+            
+                
+                setTimeout($scope.mostrar, 0);
+            }
+            $scope.re = function(){
+                $scope.resultado = 
+                    parseInt($scope.valor1, 10) -
+                    parseInt($scope.valor2, 10);
+                
+            
+                
+                setTimeout($scope.mostrar, 0);
+            }
+
+            $scope.mu = function(){
+                $scope.resultado = 
+                    parseInt($scope.valor1, 10) *
+                    parseInt($scope.valor2, 10);
+                
+            
+                
+                setTimeout($scope.mostrar, 0);
+            }
+
+            $scope.di = function(){
+                $scope.resultado = 
+                    parseInt($scope.valor1, 10) /
+                    parseInt($scope.valor2, 10);
+                
+            
+                
+                setTimeout($scope.mostrar, 0);
+            }
+        }]
+    };
+});
+</script>
+</body>
+</html> 
